@@ -18,7 +18,7 @@ const Home = () => {
     const response = await Promise.all(
       results.map(({ url }) => axios.get(url))
     );
-    dispatch({ type: 'add_pokemon', payload: { response } });
+    dispatch({ type: 'add_pokemon', payload: { pokes: response } });
   };
 
   useEffect(() => {
@@ -37,10 +37,9 @@ const Home = () => {
             <AiOutlineSearch />
           </button>
         </div>
-        <div className="flex flex-wrap">
-          {pokes.map(({ data }) => (
-            <Card />
-          ))}
+        <div className="flex flex-wrap gap-5 justify-center">
+          {pokes &&
+            pokes.map(({ data }) => <Card data={data} key={data.name} />)}
         </div>
       </div>
     </div>
